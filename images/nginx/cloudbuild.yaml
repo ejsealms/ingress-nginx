@@ -23,7 +23,6 @@ steps:
   - name: gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20241110-72bb0b1665
     env:
       - REGISTRY=gcr.io/k8s-staging-ingress-nginx
-      - HOME=/root
     entrypoint: bash
     args:
       - -c
