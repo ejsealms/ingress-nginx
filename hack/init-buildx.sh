@@ -36,7 +36,8 @@ if [ "$(uname)" == 'Linux' ]; then
   # NOTE: this is pinned to a digest for a reason!
   # Note2 (@rikatz) - Removing the pin, as apparently it's breaking new alpine builds
   # docker run --rm --privileged multiarch/qemu-user-static@sha256:28ebe2e48220ae8fd5d04bb2c847293b24d7fbfad84f0b970246e0a4efd48ad6 --reset -p yes
-  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  #docker run --privileged multiarch/qemu-user-static --reset -p yes
+  docker run --privileged linuxkit/binfmt:v1.0.0
 fi
 
 # We can skip setup if the current builder already has multi-arch

@@ -32,7 +32,7 @@ IMAGE = $(REGISTRY)/nginx
 export DOCKER_CLI_EXPERIMENTAL=enabled
 
 # build with buildx
-PLATFORMS?=linux/amd64/v2,linux/arm,linux/arm64/v2
+PLATFORMS?=linux/amd64,linux/arm,linux/arm64
 OUTPUT=
 PROGRESS=plain
 build: ensure-buildx
@@ -51,8 +51,10 @@ ensure-buildx:
 # this is required for cloudbuild
 ifeq ("$(wildcard $(INIT_BUILDX))","")
 	@curl -sSL https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/hack/init-buildx.sh | bash
+	@echo "installed via main"
 else
 	@exec $(INIT_BUILDX)
+	@echo "executed from repo"
 endif
 	@echo "done"
 
