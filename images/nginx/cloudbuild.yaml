@@ -5,6 +5,18 @@ options:
   substitution_option: ALLOW_LOOSE
 steps:
   - name: gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20241110-72bb0b1665
+    args: ['run', '--privileged', 'linuxkit/binfmt:v1.0.0']
+    id: initialize-qemu
+  - name: gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20241110-72bb0b1665
+    args: ['buildx', 'create', '--name', 'builder']
+    id: create-builder
+  - name: gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20241110-72bb0b1665
+    args: ['buildx', 'use', 'builder']
+    id: select-builder
+  - name: gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20241110-72bb0b1665
+    args: ['buildx', 'inspect', '--bootstrap']
+    id: show-target-build-platforms
+  - name: gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20241110-72bb0b1665
     env:
       - REGISTRY=gcr.io/k8s-staging-ingress-nginx
       - HOME=/root
