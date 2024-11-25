@@ -37,7 +37,7 @@ if [ "$(uname)" == 'Linux' ]; then
   # Note2 (@rikatz) - Removing the pin, as apparently it's breaking new alpine builds
   # docker run --rm --privileged multiarch/qemu-user-static@sha256:28ebe2e48220ae8fd5d04bb2c847293b24d7fbfad84f0b970246e0a4efd48ad6 --reset -p yes
   #docker run --privileged multiarch/qemu-user-static --reset -p yes
-  docker run --privileged linuxkit/binfmt:v1.0.0
+  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes
 fi
 
 # We can skip setup if the current builder already has multi-arch
