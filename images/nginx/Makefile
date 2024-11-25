@@ -12,6 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Define QEMU version.
+QEMU_VERSION ?= v9.1.2
+
+.PHONY: binfmt
+binfmt:
+	# Download binfmt.
+	curl https://github.com/tonistiigi/binfmt/archive/master.tar.gz --location | tar --extract --gzip
+
+	# Build binfmt.
+	cd binfmt-master && QEMU_VERSION=$(QEMU_VERSION) docker buildx bake --load mainline && rm -rf binfmt-master
+
 # Define registry, image and tag.
 REGISTRY ?= gcr.io/k8s-staging-ingress-nginx
 IMAGE = $(REGISTRY)/nginx
@@ -22,4 +33,4 @@ PLATFORMS ?= linux/arm64
 
 .PHONY: build
 build:
-	docker buildx build --platform ${PLATFORMS}	--tag $(IMAGE):$(TAG) --progress plain rootfs
+	docker buildx build --platform ${PLATFORMS} --tag $(IMAGE):$(TAG) --progress plain rootfs
