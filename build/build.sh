@@ -34,7 +34,7 @@ fi
 
 export GOARCH="${ARCH}"
 
-TARGETS_DIR="rootfs/bin/${ARCH}"
+TARGETS_DIR="rootfs/bin/"
 echo "Building targets for ${ARCH}, generated targets in ${TARGETS_DIR} directory."
 
 echo "Building ${PKG}/cmd/nginx"
